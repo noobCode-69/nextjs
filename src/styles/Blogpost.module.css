@@ -1,0 +1,13 @@
+.blog-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto; 
+    padding: 5rem 0 0 0;
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+}
+
+.blog-container p {
+    text-align: justify;
+}

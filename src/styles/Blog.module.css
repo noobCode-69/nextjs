@@ -1,0 +1,22 @@
+
+
+.blog-container {
+    margin: 0 auto;
+    padding : 5rem 0 0 0;
+    width: 95%;
+    max-width: 1200px;
+}
+
+.blogs {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .blogItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  
+  }
+  
