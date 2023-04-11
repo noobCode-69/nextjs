@@ -56,7 +56,7 @@ export default function Home({blogs}) {
 export async function getServerSideProps(context) {
   let data;
   try {
-    data = await fetch("http://localhost:3000/api/blogs")
+    data = await fetch("https://nextjs-dun-kappa-58.vercel.app/api/blogs")
     data = await data.json();
   } catch (error) {
     console.log(error);
