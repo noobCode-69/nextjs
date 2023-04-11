@@ -2,13 +2,10 @@ import React from 'react'
 import styles from './Navbar.module.css'
 import Link from 'next/link'
 
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
-
 
 function Navbar() {
   return (
-    <nav className={`${styles['nav']} ${inter.className}`}>
+    <nav className={`${styles['nav']}`}>
     <ul>
       <Link  href="/">
         <li>Home</li>

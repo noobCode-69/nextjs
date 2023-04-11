@@ -1,61 +1,63 @@
+import { useState, useEffect } from "react";
+import Head from "next/head";
 
-import Head from 'next/head'
-
-import Link from 'next/link'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import Link from "next/link";
+import Image from "next/image";
+import styles from "@/styles/Home.module.css";
 
 export default function Home() {
+  const [blogs, setBlogs] = useState(null);
 
-  
+  useEffect(() => {
+    fetch("http://localhost:3000/api/blogs")
+      .then((a) => {
+        return a.json();
+      })
+      .then((data) => {
+        setBlogs(data);
+      });
+  }, []);
+
+  const fetchContent = () => {
+    if (blogs == null) {
+      return (
+        <h1 style={{ paddingTop: "5rem", textAlign: "center" }}>Loading</h1>
+      );
+    }
+
+    if (Array.isArray(blogs) && blogs.length == 0) {
+      return (
+        <h1 style={{ paddingTop: "5rem", textAlign: "center" }}>
+          No Blogs to read
+        </h1>
+      );
+    }
+    return blogs.map((item) => {
+      return (
+        <div key={item.title} className={styles["blogItem"]}>
+          <Link href={`/blogpost/${item.link}`}>
+            <h3>{item.title}</h3>
+            <p>{item.content.substr(0, 200)}...</p>
+          </Link>
+        </div>
+      );
+    });
+  };
 
   return (
-    <div className={`${inter.className} ${styles['main-content']}`}>
+    <div className={`${styles["main-content"]}`}>
       <Head>
         <title>Hunter Coder</title>
         <meta name="description" content="A blogging app created with NextJS" />
         <meta name="keywords" content="next, nextjs, react, beginner" />
       </Head>
-   
 
-      
       <main className={styles.main}>
         <h1>Hunting coder</h1>
         <p>A coding platform for the coder by the coder.</p>
       </main>
 
-      <div className={styles["blogs"]}>
-        <div className={styles["blogItem"]}>
-          <Link href={"/blogpost/how-to-learn-js"}>
-            <h3>How to learn Javascript in 2022</h3>
-            <p>Javascript is dope.</p>
-          </Link>
-        </div>
-
-        <div className={styles["blogItem"]}>
-          <Link href={"/blogpost/how-to-learn-js"}>
-            <h3>How to learn Javascript in 2022</h3>
-            <p>Javascript is dope.</p>
-          </Link>{" "}
-        </div>
-
-        <div className={styles["blogItem"]}>
-          <Link href={"/blogpost/how-to-learn-js"}>
-            <h3>How to learn Javascript in 2022</h3>
-            <p>Javascript is dope.</p>
-          </Link>{" "}
-        </div>
-
-        <div className={styles["blogItem"]}>
-          <Link href={"/blogpost/how-to-learn-js"}>
-            <h3>How to learn Javascript in 2022</h3>
-            <p>Javascript is dope.</p>
-          </Link>{" "}
-        </div>
-      </div>
-
+      <div className={styles["blogs"]}>{fetchContent()}</div>
     </div>
-  )
+  );
 }

@@ -5,7 +5,7 @@
     padding: 5rem 0 0 0;
     flex-direction: column;
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .blog-container p {
