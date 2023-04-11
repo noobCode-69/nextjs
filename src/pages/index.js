@@ -54,9 +54,8 @@ export default function Home({blogs}) {
 
 
 export async function getServerSideProps(context) {
-  let data = await fetch("https://nextjs-noobcode-69.vercel.app/api/blogs")
+  let data = await fetch("http://localhost:3000/api/blogs")
   data = await data.json();
-
   return {
     props : {blogs : data}
   }

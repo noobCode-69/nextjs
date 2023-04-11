@@ -18,14 +18,18 @@ function Slug({blog}) {
 }
 
 
-export async function getServerSideProps(context) {
-  let { slug } = context.params;
-  let data = await fetch(`https://nextjs-noobcode-69.vercel.app/api/getblog?slug=${slug}`)
-  data = await data.json()
+  export async function getServerSideProps(context) {
 
-  return {
-    props : {blog : data}
+
+    let { slug } = context.params;  
+
+
+    let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+    data = await data.json()
+
+    return {
+      props : {blog : data}
+    }
   }
-}
 
 export default Slug;
