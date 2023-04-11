@@ -7,7 +7,6 @@ function Slug({blog}) {
   if (!blog) {
     return <h1 style={{ paddingTop: "5rem", textAlign: "center" }}>Loading</h1>;
   }
-
   return (
     <div className={`${styles["blog-container"]}`}>
       <h1>{blog.title}</h1>
@@ -21,7 +20,7 @@ function Slug({blog}) {
 
 export async function getServerSideProps(context) {
   let { slug } = context.params;
-  let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+  let data = await fetch(`https://nextjs-noobcode-69.vercel.app/api/getblog?slug=${slug}`)
   data = await data.json()
 
   return {
