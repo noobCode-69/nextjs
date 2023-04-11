@@ -16,6 +16,7 @@
   .blogItem {
     padding: 2rem 1rem;
     outline: 1px solid black;
+    border-radius: 10px;
   }
 
 .blogItem a {

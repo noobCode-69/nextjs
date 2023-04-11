@@ -3,22 +3,13 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/Blog.module.css";
 
 
-const Blog = () => {
+const Blog = (props) => {
 
-  const [blogs , setBlogs] = useState(null);
-  
-  
-  useEffect(() => { 
-    fetch('http://localhost:3000/api/blogs').then((a) => {
-      return a.json(); 
-    }).then((data) => {
-      setBlogs(data)
-    })
-  } , [])
+  const {blogs} = props; 
 
 
 
-  if(blogs == null){
+  if(!blogs){
     return <h1 style={{paddingTop : "5rem" , textAlign : 'center'}}>Loading</h1>
   }
 
@@ -28,8 +19,6 @@ const Blog = () => {
 
 
   return (
-
-
     <div className={`${styles["blog-container"]}`}>
       <div className={styles["blogs"]}>
 
@@ -43,10 +32,18 @@ const Blog = () => {
           </div>
           })
         }
-
       </div>
     </div>
   );
 };
+
+
+export async function getServerSideProps(context) {
+  let data = await fetch('http://localhost:3000/api/blogs')
+  data = await data.json();
+  return {
+    props : {blogs : data}
+  }
+}
 
 export default Blog;

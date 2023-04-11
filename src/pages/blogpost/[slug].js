@@ -2,25 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/Blogpost.module.css";
 
-function Slug() {
-  const [blog, setBlog] = useState(null);
-  const router = useRouter();
-  let { slug } = router.query;
+function Slug({blog}) {
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
-      .then((a) => {
-        return a.json();
-      })
-      .then((data) => {
-        setBlog(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [slug]);
-
-  if (blog == null) {
+  if (!blog) {
     return <h1 style={{ paddingTop: "5rem", textAlign: "center" }}>Loading</h1>;
   }
 
@@ -32,6 +16,17 @@ function Slug() {
       <p style={{paddingTop : "1rem" ,  fontWeight : "bold"}} >From : {blog.author}</p>
     </div>
   );
+}
+
+
+export async function getServerSideProps(context) {
+  let { slug } = context.params;
+  let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+  data = await data.json()
+
+  return {
+    props : {blog : data}
+  }
 }
 
 export default Slug;

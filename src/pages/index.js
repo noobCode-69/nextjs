@@ -5,18 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 
-export default function Home() {
-  const [blogs, setBlogs] = useState(null);
+export default function Home({blogs}) {
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/blogs")
-      .then((a) => {
-        return a.json();
-      })
-      .then((data) => {
-        setBlogs(data);
-      });
-  }, []);
 
   const fetchContent = () => {
     if (blogs == null) {
@@ -60,4 +50,14 @@ export default function Home() {
       <div className={styles["blogs"]}>{fetchContent()}</div>
     </div>
   );
+}
+
+
+export async function getServerSideProps(context) {
+  let data = await fetch("http://localhost:3000/api/blogs")
+  data = await data.json();
+
+  return {
+    props : {blogs : data}
+  }
 }
