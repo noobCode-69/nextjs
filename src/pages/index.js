@@ -54,8 +54,13 @@ export default function Home({blogs}) {
 
 
 export async function getServerSideProps(context) {
-  let data = await fetch("http://localhost:3000/api/blogs")
-  data = await data.json();
+  let data;
+  try {
+    data = await fetch("http://localhost:3000/api/blogs")
+    data = await data.json();
+  } catch (error) {
+    console.log(error);
+  }
   return {
     props : {blogs : data}
   }
